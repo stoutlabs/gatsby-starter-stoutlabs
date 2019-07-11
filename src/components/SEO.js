@@ -17,12 +17,12 @@ const getSchemaOrgJSONLD = ({
   isProjectPage,
   isBlogPage,
   url,
-  title,
+  theTitle,
   image,
-  description,
+  theDescription,
   datePublished,
 }) => {
-  const schemaOrgJSONLD = generateSchemaBase(title, description, url);
+  const schemaOrgJSONLD = generateSchemaBase(theTitle, theDescription, url);
 
   if (url === config.url) {
     return [
@@ -34,16 +34,22 @@ const getSchemaOrgJSONLD = ({
   if (isBlogPage) {
     return [
       ...schemaOrgJSONLD,
-      generateBreadcrumbSchema(url, title, image),
-      generatePostSchema(url, title, image, description, datePublished),
+      generateBreadcrumbSchema(url, theTitle, image),
+      generatePostSchema(url, theTitle, image, theDescription, datePublished),
     ];
   }
 
   if (isProjectPage) {
     return [
       ...schemaOrgJSONLD,
-      generateBreadcrumbSchema(url, title, image),
-      generateProjectSchema(url, title, image, description, datePublished),
+      generateBreadcrumbSchema(url, theTitle, image),
+      generateProjectSchema(
+        url,
+        theTitle,
+        image,
+        theDescription,
+        datePublished
+      ),
     ];
   }
 

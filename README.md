@@ -6,6 +6,11 @@ Opinionated barebones GatsbyJS starter, pre-installed with my preferred tools an
 
 Almost zero styling, almost zero layout - ready to edit, delete what you don't need!
 
+[Demo Link](https://gatsby-starter-stoutlabs-demo.netlify.com/) 
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/stoutlabs/gatsby-starter-stoutlabs)
+
+
 Features/Includes:
 
 * `styled-components`

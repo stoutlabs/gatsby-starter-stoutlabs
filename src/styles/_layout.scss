@@ -1,0 +1,18 @@
+div.container {
+  max-width: 900px;
+  margin: 0 1rem;
+
+  @media screen and (min-width: 768px) {
+    margin: 0 auto;
+  }
+}
+
+section {
+  padding: 3rem 0;
+}
+
+caption {
+  display: block;
+  text-align: center;
+  font-style: italic;
+}

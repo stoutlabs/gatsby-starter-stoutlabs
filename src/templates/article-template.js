@@ -9,7 +9,7 @@ import Seo from "../components/SEO";
 
 const BlogPost = ({ data, pageContext }) => {
   const { markdownRemark: post } = data;
-  //console.log('context: ', pageContext);
+  
   return (
     <Layout>
       <Seo
@@ -60,7 +60,7 @@ export const pageQuery = graphql`
         tags
         featureimg {
           childImageSharp {
-            fluid(maxWidth: 900, quality: 80) {
+            fluid(maxWidth: 1000, quality: 80) {
               ...GatsbyImageSharpFluid
             }
           }

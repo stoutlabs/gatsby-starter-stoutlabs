@@ -4,6 +4,15 @@ import Helmet from "react-helmet";
 import PropTypes from "prop-types";
 import config from "../config";
 
+import { 
+  generateSchemaBase, 
+  generateHomepageSchemaAdditions,
+  generateBreadcrumbSchema,
+  generatePostSchema,
+  generateProjectSchema
+} from "../helpers/seoHelpers";
+
+
 const getSchemaOrgJSONLD = ({
   isProjectPage,
   isBlogPage,
@@ -13,164 +22,43 @@ const getSchemaOrgJSONLD = ({
   description,
   datePublished,
 }) => {
-  const schemaOrgJSONLD = [
-    {
-      "@context": "http://schema.org",
-      "@type": "WebSite",
-      url: url,
-      name: title,
-      alternateName: config.title,
-      author: {
-        "@type": "Person",
-        name: config.author.name,
-      },
-      description: description,
-      publisher: config.company,
-    },
-  ];
+  const schemaOrgJSONLD = generateSchemaBase(title, description, url);
 
   if (url === config.url) {
     return [
       ...schemaOrgJSONLD,
-      {
-        "@context": "http://schema.org",
-        "@type": "LocalBusiness",
-        address: {
-          "@type": "PostalAddress",
-          addressLocality: "Your Town",
-          addressRegion: "NY",
-          postalCode: "23456",
-          streetAddress: "221B Your St.",
-        },
-        description: config.description,
-        name: config.company,
-        telephone: "423-343-4274",
-        openingHours: "Mo,Tu,We,Th,Fr 8:00-17:00",
-        image: config.image,
-        geo: {
-          "@type": "GeoCoordinates",
-          latitude: "36.1",
-          longitude: "-82.0",
-        },
-        sameAs: [
-          "http://www.facebook.com/yourFBpage",
-          "http://www.twitter.com/yourTwitter",
-          "https://plus.google.com/u/1/YOUR_ID",
-        ],
-      },
+      generateHomepageSchemaAdditions(),
     ];
   }
 
   if (isBlogPage) {
     return [
       ...schemaOrgJSONLD,
-      {
-        "@context": "http://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            item: {
-              "@id": url,
-              name: title,
-              image,
-            },
-          },
-        ],
-      },
-      {
-        "@context": "http://schema.org",
-        "@type": "Article",
-        url,
-        name: title,
-        alternateName: config.title,
-        headline: title,
-        image: {
-          "@type": "ImageObject",
-          url: image,
-        },
-        description,
-        author: {
-          "@type": "Person",
-          name: "Daniel Stout",
-        },
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id": url,
-        },
-        datePublished: datePublished,
-        publisher: {
-          "@type": "Organization",
-          name: config.company,
-          logo: {
-            "@type": "ImageObject",
-            width: 226,
-            height: 60,
-            url: config.logo,
-          },
-        },
-      },
+      generateBreadcrumbSchema(url, title, image),
+      generatePostSchema(url, title, image, description, datePublished),
     ];
   }
 
   if (isProjectPage) {
     return [
       ...schemaOrgJSONLD,
-      {
-        "@context": "http://schema.org",
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            item: {
-              "@id": url,
-              name: title,
-              image,
-            },
-          },
-        ],
-      },
-      {
-        "@context": "http://schema.org",
-        "@type": "WebPage",
-        url,
-        name: title,
-        alternateName: config.title,
-        headline: title,
-        image: {
-          "@type": "ImageObject",
-          url: image,
-        },
-        description,
-        author: {
-          "@type": "Person",
-          name: "Daniel Stout",
-        },
-        mainEntityOfPage: {
-          "@type": "WebSite",
-          "@id": config.url,
-        },
-        datePublished: datePublished,
-      },
+      generateBreadcrumbSchema(url, title, image),
+      generateProjectSchema(url, title, image, description, datePublished),
     ];
   }
 
   return schemaOrgJSONLD;
 };
 
-const SEO = ({ title, description, postData, postImage, isProjectPage, isBlogPage }) => {
+const SEO = ({ postData, postImage, isProjectPage, isBlogPage }) => {
   const postMeta = postData.frontmatter || {};
 
   const theTitle = isBlogPage
     ? postMeta.title + " | Your Blog"
-    : postMeta.title ? postMeta.title 
-    : title ? title 
+    : postMeta.title ? postMeta.title
     : config.title;
 
-  const theDescription =
-    description || postMeta.description || postData.excerpt || config.description;
+  const theDescription = postMeta.description || postData.excerpt || config.description;
 
   const image = postImage ? `${config.url}${postImage}` : config.image;
 
@@ -184,9 +72,9 @@ const SEO = ({ title, description, postData, postImage, isProjectPage, isBlogPag
     isBlogPage,
     isProjectPage,
     url,
-    title,
+    theTitle,
     image,
-    description,
+    theDescription,
     datePublished,
   });
 
@@ -198,7 +86,7 @@ const SEO = ({ title, description, postData, postImage, isProjectPage, isBlogPag
       <meta name="image" content={image} />
       <meta
         name="google-site-verification"
-        content="1Uqm6h9_iawEMYdHmb86lBBUQv_1CJTzeXmcOiLuOpo"
+        content="your_value_here"
       />
 
       {/* Schema.org tags */}

@@ -9,5 +9,7 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
     background-color: rgb(250,250,250);
     font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
   }
 `;

@@ -9,7 +9,8 @@ export class BlogIndex extends Component {
   render() {
     const seoData = {
       frontmatter: {
-        title: "My Blog",
+        title: "All Posts | Your Site Name",
+        description: "Index of blog posts here."
       },
     };
 

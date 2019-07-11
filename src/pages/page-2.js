@@ -6,7 +6,7 @@ import SEO from "../components/SEO";
 
 const seoData = {
   frontmatter: {
-    title: "Page Two",
+    title: "Page Two | Gatsby Starter StoutLabs",
     description: "Test description for page two.",
   },
 };

@@ -11,7 +11,7 @@ module.exports = {
   logo:
     "https://gatsby-starter-stoutlabs-demo.netlify.com/android-chrome-512x512.jpg",
   twitter: "@yourtwitter",
-  //fbAppID: "1234567890",
+  // fbAppID: "1234567890",
   // ...etc
   pathPrefix: "",
 

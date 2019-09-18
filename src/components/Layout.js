@@ -2,8 +2,6 @@ import React from "react";
 import { StaticQuery, graphql } from "gatsby";
 import styled from "styled-components";
 
-import "typeface-roboto"; // You could also load this in gatsby-browser.js!
-
 import Navbar from "./NavBar";
 import Footer from "./Footer";
 import { GlobalStyle } from "../styles/globalStyles";

@@ -5,7 +5,7 @@
  */
 // You can delete this file if you're not using it
 
-// import "typeface-roboto"; // Could import this here.
+import "typeface-roboto";
 
 // Importing our main SCSS file here. Boom, instant site-wide SCSS!
 import "./src/styles/style.scss";

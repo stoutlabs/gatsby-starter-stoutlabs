@@ -4,14 +4,13 @@ import Helmet from "react-helmet";
 import PropTypes from "prop-types";
 import config from "../config";
 
-import { 
-  generateSchemaBase, 
+import {
+  generateSchemaBase,
   generateHomepageSchemaAdditions,
   generateBreadcrumbSchema,
   generatePostSchema,
-  generateProjectSchema
+  generateProjectSchema,
 } from "../helpers/seoHelpers";
-
 
 const getSchemaOrgJSONLD = ({
   isProjectPage,
@@ -25,10 +24,7 @@ const getSchemaOrgJSONLD = ({
   const schemaOrgJSONLD = generateSchemaBase(theTitle, theDescription, url);
 
   if (url === config.url) {
-    return [
-      ...schemaOrgJSONLD,
-      generateHomepageSchemaAdditions(),
-    ];
+    return [...schemaOrgJSONLD, generateHomepageSchemaAdditions()];
   }
 
   if (isBlogPage) {
@@ -60,11 +56,13 @@ const SEO = ({ postData, postImage, isProjectPage, isBlogPage }) => {
   const postMeta = postData.frontmatter || {};
 
   const theTitle = isBlogPage
-    ? postMeta.title + " | Your Blog"
-    : postMeta.title ? postMeta.title
+    ? `${postMeta.title} | Your Blog`
+    : postMeta.title
+    ? postMeta.title
     : config.title;
 
-  const theDescription = postMeta.description || postData.excerpt || config.description;
+  const theDescription =
+    postMeta.description || postData.excerpt || config.description;
 
   const image = postImage ? `${config.url}${postImage}` : config.image;
 
@@ -119,11 +117,12 @@ const SEO = ({ postData, postImage, isProjectPage, isBlogPage }) => {
 };
 
 SEO.propTypes = {
-  isBlogPost: PropTypes.bool,
+  isBlogPage: PropTypes.bool,
+  isProjectPage: PropTypes.bool,
   postData: PropTypes.shape({
     frontmatter: PropTypes.any,
     excerpt: PropTypes.any,
-  }).isRequired,
+  }),
   postImage: PropTypes.string,
 };
 
@@ -131,7 +130,10 @@ SEO.defaultProps = {
   isProjectPage: false,
   isBlogPage: false,
   postImage: null,
-  postData: {}
+  postData: {
+    frontmatter: PropTypes.object,
+    excerpt: PropTypes.any,
+  },
 };
 
 export default SEO;
